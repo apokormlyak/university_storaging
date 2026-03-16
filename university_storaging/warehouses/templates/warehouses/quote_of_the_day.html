@@ -1,0 +1,22 @@
+{% load quote_of_the_day %}
+
+  <head>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+
+  </head>
+
+<div class="container my-5" style="
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;">
+    <div class="card p-3 m-5 text-center" style="width: 25rem;">
+  <div class="card-body">
+    <p class="card-text">
+        <h1>Давайте подумаем о жизни с цитатой дня</h1>
+      <b>Сегодняшняя цитата: {% quote_of_the_day %}<label id="lucky"></label></b>
+  </div>
+</div>
+
+</div>

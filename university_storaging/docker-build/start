@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+CELERY_APP="settings.celery"
+
+if [[ $1 == "server" ]]; then
+  python /app/manage.py migrate --noinput
+  python /app/manage.py collectstatic --noinput
+  python /app/manage.py runserver 0.0.0.0:8000
+
+elif [[ $1 == "celery-worker" ]]; then
+  # Используем переменную приложения
+  celery -A $CELERY_APP worker --loglevel=DEBUG
+
+elif [[ $1 == "celery_beat" ]]; then
+  # Удаляем старый файл блокировки, если он остался
+  rm -f celerybeat.pid
+  # Запускаем beat (purge можно оставить, если используете специфические очереди)
+  celery -A $CELERY_APP beat --loglevel=DEBUG --scheduler django_celery_beat.schedulers:DatabaseScheduler
+fi

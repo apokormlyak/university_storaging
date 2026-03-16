@@ -1,0 +1,36 @@
+{% extends './base.html' %}
+
+{% block body %}
+  <h1 class="p-3">Типы хранения:</h1>
+  {% if object_list %}
+    <ul style="font-size: 1.5em" class="border border-primary p-5">
+      {% for type in object_list %}
+        <li class="m-3">
+          <strong>{{ type.name }}</strong> <em>(
+            {% for wh in type.warehouse.prefetch_related %}
+             {{wh.name}}
+                  {% endfor %}
+
+            )</em>.
+          <strong>
+            <a href="{% url 'warehouses:storagetype_detail' pk=type.pk %}">
+Подробнее            </a>
+               </strong>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <h2 style="font-size: 1.5em" class="border border-primary p-5">Пока нет типов хранения</h2>
+  {% endif %}
+<div>
+    <ul class="nav flex-column" style="font-size: 1.2em">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" href="{% url 'warehouses:create_storagetype' %}">Добавить новый тип хранения</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'warehouses:index' %}">Назад</a>
+  </li>
+</ul>
+</div>
+
+{% endblock %}

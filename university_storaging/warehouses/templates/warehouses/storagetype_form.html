@@ -1,0 +1,30 @@
+{% extends './base.html' %}
+
+{% block title %}
+<h3 class="p-5">Создать новый тип хранения</h3>
+{% endblock %}
+
+{% block body %}
+<style>
+    #form {
+      padding: 5% 10%;
+      margin: 6%;
+      font-size: 1.5em;
+    }
+  </style>
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="card text-left" >
+  <form method="post" id="form" class="border border-primary">
+    {% csrf_token %}
+    {{ form|crispy }}
+   <button class="btn btn-primary" type="submit">Создать</button>
+  </form>
+        <a class="p-3" style="font-size: 1.5em" href="{% url 'warehouses:storagetype_list' %}">Вернуться к списку</a>
+    </div>
+
+{% endblock %}
+
+
+{% endblock %}

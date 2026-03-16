@@ -1,0 +1,50 @@
+{% extends './base.html' %}
+
+{% block title %}
+
+<h3 class="p-5">{{object.name}}</h3>
+{% endblock %}
+
+{% block body %}
+<style>
+    #form {
+      padding: 5% 10%;
+      margin: 6%;
+      font-size: 1.5em;
+    }
+  </style>
+{% load crispy_forms_tags %}
+
+<div class="card text-left" >
+  <form class="border border-primary">
+    {% csrf_token %}
+<div>
+
+  <div class="p-5" style="font-size: 1.5em">
+    <div class="col-6 p-2">
+        {% for wh in object.warehouse.prefetch_related %}
+<span >
+  Склад: {{wh.name}}
+</span>
+                          {% endfor %}
+            </div>
+
+      <div class="col-6 p-2">
+      <span >
+</span>
+        </div>
+
+      <div class="col-6 p-2">
+        Описание: {{object.description}}
+      </div>
+    </div>
+</div>
+      <div class="col-6 p-5">
+    <a class="nav-link" aria-current="page" href="{% url 'warehouses:delete_storagetype' pk=object.pk %}">Удалить тип хранения?</a>
+      </div>
+  </form>
+
+          <a class='p-5' href="{% url 'warehouses:cargo_list' %}">Вернуться к списку</a>
+    </div>
+
+{% endblock %}

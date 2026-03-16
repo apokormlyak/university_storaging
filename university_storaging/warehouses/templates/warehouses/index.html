@@ -1,0 +1,38 @@
+{% extends './base.html' %}
+
+
+{% block body %}
+  <h1 class="p-3">Университет Синергия. Склады: складские операции</h1>
+
+<div class="card text-center d-grid gap-10 p-3" style="background-color: #f8f9fa;">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs" style="font-size: 1.2em">
+      <li class="nav-item">
+        <a class="nav-link" href="warehouse_list">Список складов</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="storagetype_list">Список типов хранения</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="cargo_list">Список грузов</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Создать новый склад</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="create_warehouse" class="btn btn-primary">Создать</a>
+  </div>
+    <div class="card-body">
+    <h5 class="card-title">Создать новый тип хранения</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="create_storagetype" class="btn btn-primary">Создать</a>
+  </div>
+    <div class="card-body">
+    <h5 class="card-title">Создать новый груз</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="create_cargo" class="btn btn-primary">Создать</a>
+  </div>
+</div>
+
+{% endblock %}

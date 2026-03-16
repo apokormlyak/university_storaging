@@ -1,0 +1,23 @@
+{% extends './base.html' %}
+
+{% block title %}
+
+<h3 class="p-15">Подтверждение удаления</h3>
+{% endblock %}
+
+
+{% block body %}
+  <form method="post" class="border border-warning">
+  <h1>Склад {{object.name}} будет удален из списка складов</h1>
+
+    {% csrf_token %}
+  <div class="p-5 col-6" style="font-size: 1.5em">
+<p>Продолжить удаление?
+            </div>
+
+      <div class="col-6 p-5">
+          <p><button class="btn btn-primary" type="submit" style="font-size: 1.2em">Да</button>
+        </div>
+        <a class="p-5 m-5" style="font-size: 1.2em" href="{% url 'warehouses:warehouse_list' %}">Вернуться к списку</a>
+    </form>
+{% endblock %}

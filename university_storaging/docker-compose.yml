@@ -1,0 +1,79 @@
+version: "3"
+
+services:
+  backend: &backend
+      restart: always
+      build:
+        context: ..
+        dockerfile: ./university_storaging/docker-build/Dockerfile
+        args:
+          - REQUIREMENTS_PATH=/app/requirements.txt
+      command: ./docker-build/start server
+      volumes:
+        - .:/app
+        - static_volume:/app/django_static
+        - media_volume:/app/django_media
+      ports:
+        - "8000:8000"
+      depends_on:
+        - postgres
+        - redis
+      networks:
+        - net
+      env_file:
+        - environment
+
+  postgres:
+      env_file:
+        - environment
+      image: postgres:16-alpine
+      restart: always
+      ports:
+        - "5439:5432"
+      volumes:
+        - db_data:/var/lib/postgresql/data
+      networks:
+        - net
+
+  redis:
+      image: redis:7-alpine
+      restart: always
+      container_name: redis
+      command: [ "redis-server", "--port", "6379", "--appendonly", "yes","--maxmemory", "1gb", "--maxmemory-policy", "allkeys-lru" ]
+      ports:
+        - "6379:6379"
+      volumes:
+        - redis_data:/data
+      networks:
+        - net
+
+  celery-worker:
+      <<: *backend
+      container_name: celery-worker
+      command: ./docker-build/start celery-worker
+      ports: []
+      depends_on:
+        - redis
+        - postgres
+      networks:
+        - net
+
+  celery-beat:
+      <<: *backend
+      container_name: celery-beat
+      command: ./docker-build/start celery_beat
+      ports: []
+      depends_on:
+        - celery-worker
+        - redis
+      networks:
+        - net
+
+networks:
+  net:
+
+volumes:
+    static_volume: {}
+    media_volume: {}
+    db_data: {}
+    redis_data: {}
