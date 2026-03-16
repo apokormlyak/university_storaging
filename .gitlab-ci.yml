@@ -1,0 +1,45 @@
+image: python:3.13
+
+# Change pip's cache directory to be inside the project directory since we can
+# only cache local items.
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  POSTGRES_DB: storaging_db
+  POSTGRES_USER: admin
+  POSTGRES_PASSWORD: password
+  POSTGRES_HOST_AUTH_METHOD: trust
+
+stages:
+  - lint
+  - test
+
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+before_script:
+  - python --version ; pip --version  # For debugging
+  - pip install virtualenv
+  - virtualenv venv
+  - source venv/bin/activate
+
+lint:
+  script:
+    - pip install flake8
+    - flake8
+  except:
+    - tags
+
+test:
+  services:
+    - postgres:16-alpine
+    - redis:latest
+  variables:
+      DATABASE_URL: pgsql://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres/$POSTGRES_DB
+  script:
+    - pip install -r university_storaging/requirements.txt
+    - university_storaging/manage.py migrate --noinput
+    - pytest --cov
+  except:
+    - tags
