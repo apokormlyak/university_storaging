@@ -1,6 +1,6 @@
 from django.test import TestCase
 from rest_framework import status
-from ..models import Warehouse, StorageType, Cargo
+from university_storaging.warehouses.models import Warehouse, StorageType, Cargo
 import logging
 
 logger = logging.getLogger(__name__)
