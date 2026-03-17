@@ -4,8 +4,8 @@ services:
   backend: &backend
       restart: always
       build:
-        context: ..
-        dockerfile: ./university_storaging/docker-build/Dockerfile
+        context: .
+        dockerfile: ./docker-build/Dockerfile
         args:
           - REQUIREMENTS_PATH=/app/requirements.txt
       command: ./docker-build/start server

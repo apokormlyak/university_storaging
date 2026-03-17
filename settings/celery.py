@@ -7,7 +7,7 @@ from celery.signals import setup_logging
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.settings")
 
-app = Celery('warehouses', broker='redis://redis:6379/0', backend='redis://redis:6379/0')
+app = Celery('university_storaging', broker='redis://redis:6379/0', backend='redis://redis:6379/0')
 
 app.config_from_object("django.conf:settings", namespace="CELERY")
 app.conf.update(
@@ -17,7 +17,7 @@ app.conf.update(
     task_serializer="json",
     task_time_limit=5 * 60,
     task_soft_time_limit=60,
-    include=["warehouses.tasks"],
+    include=["apps.warehouses.tasks"],
     broker_transport_options={"max_retries": 3, "visibility_timeout": 60 * 60 * 5},
     worker_prefetch_multiplier=1,  # Disable prefetching, it's causes problems and doesn't help performance
 )

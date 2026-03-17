@@ -8,6 +8,7 @@ class Warehouse(models.Model):
     useful_value = models.FloatField('Площадь', null=False)
 
     class Meta:
+        # app_label = 'warehouses'
         verbose_name = 'Склад'
         verbose_name_plural = 'Склады'
 
@@ -19,6 +20,7 @@ class StorageType(models.Model):
     warehouse = models.ManyToManyField('Warehouse', verbose_name='Склад')
 
     class Meta:
+        # app_label = 'storage_type'
         verbose_name = 'Тип хранения'
         verbose_name_plural = 'Типы хранения'
 
@@ -32,6 +34,7 @@ class Cargo(models.Model):
     warehouse = models.ForeignKey(Warehouse, verbose_name='Склад', on_delete=models.CASCADE, null=True)
 
     class Meta:
+        # app_label = 'cargo'
         verbose_name = 'Груз'
         verbose_name_plural = 'Грузы'
 
@@ -41,5 +44,6 @@ class Quotes(models.Model):
     quote = models.CharField('Описание', max_length=1000, null=True, blank=True)
 
     class Meta:
+        # app_label = 'quotes'
         verbose_name = 'Цитата'
         verbose_name_plural = 'Цитаты'

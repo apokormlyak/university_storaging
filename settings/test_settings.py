@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django_celery_beat',
     'django_celery_results',
-    "warehouses.apps.WarehousesConfig"
+    "apps.warehouses.apps.WarehousesConfig"
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 MIDDLEWARE = [
@@ -89,8 +89,8 @@ DATABASES = {
         default="postgres://{0}:{1}@{2}:{3}/{4}".format(
             env("DJANGO_POSTGRES_USER", default="admin"),
             env("DJANGO_POSTGRES_PASSWORD", default="password"),
-            env("DJANGO_POSTGRES_HOST", default="postgres"),
-            env("DJANGO_POSTGRES_PORT", default="5432"),
+            env("DJANGO_POSTGRES_HOST", default="0.0.0.0"),
+            env("DJANGO_POSTGRES_PORT", default="5439"),
             env("DJANGO_POSTGRES_DB", default="storaging_db"),
         ),
     )
@@ -165,6 +165,6 @@ CELERY_CACHE_BACKEND = 'default'
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://redis:6379/0",
+        "LOCATION": "redis://0.0.0.0:6379/0",
     }
 }
