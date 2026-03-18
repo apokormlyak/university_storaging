@@ -25,12 +25,6 @@ docker-compose run --rm backend ./manage.py createsuperuser
 ### админка доступна по адресу: http://localhost:8000/admin/
 
 
-### тесты
-```
-docker-compose run --rm  backend pytest
-```
-
-
 ```
 python manage.py makemigrations
 docker-compose run --rm backend  sh -c "python manage.py migrate"
@@ -41,3 +35,11 @@ docker-compose run --rm backend  sh -c "python manage.py migrate"
 Создана таска get_the_quote_of_the_day, которая запускается через celery/celery-beat.
 Задача запускается по расписанию через каждую минуту и забирает из открытого апи рандомную цитату,
 и кладет в БД. А потом отдается в статический шаблон страницы index через функцию quote_of_the_day.
+
+# DRAFT: Тестирование на проекте
+
+
+### тесты
+```
+docker-compose run --rm  backend pytest
+```
