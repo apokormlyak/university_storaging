@@ -5,7 +5,7 @@ from celery import Celery
 from celery.schedules import crontab
 from celery.signals import setup_logging
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.config.local")
 
 app = Celery('university_storaging', broker='redis://redis:6379/0', backend='redis://redis:6379/0')
 

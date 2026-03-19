@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import dj_database_url
+
 import environ
 from pathlib import Path
 
@@ -81,20 +81,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "settings.wsgi.application"
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    "default": dj_database_url.config(
-        default="postgres://{0}:{1}@{2}:{3}/{4}".format(
-            env("DJANGO_POSTGRES_USER", default="admin"),
-            env("DJANGO_POSTGRES_PASSWORD", default="password"),
-            env("DJANGO_POSTGRES_HOST", default="0.0.0.0"),
-            env("DJANGO_POSTGRES_PORT", default="5439"),
-            env("DJANGO_POSTGRES_DB", default="storaging_db"),
-        ),
-    )
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -161,10 +147,3 @@ CELERY_TASK_SOFT_TIME_LIMIT = 60
 # celery setting.
 CELERY_CACHE_BACKEND = 'default'
 
-# django setting.
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://0.0.0.0:6379/0",
-    }
-}
